@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery - The 44 Photography</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Gallery</h1>
+  <div id="gallery-container"></div>
+
+  <script>
+    // Fetch gallery photos (from get_gallery_photos.php) via AJAX
+    fetch('get_gallery_photos.php')
+      .then(response => response.json())
+      .then(data => {
+          const container = document.getElementById('gallery-container');
+          data.forEach(photo => {
+              const div = document.createElement('div');
+              div.className = 'photo-item';
+              div.innerHTML = `<img src="assets/images/${photo.filename}" alt="${photo.caption}" width="200">
+                               <p>${photo.caption}</p>`;
+              container.appendChild(div);
+          });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
